@@ -1,0 +1,152 @@
+.App {
+  background: rgb(255, 255, 255);
+}
+.logo {
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  /*pointer-events: none;*/
+}
+.loader-root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  /*background: rgba(6,6,6,.44);*/
+  background: red;
+  z-index: 99999999999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.header {
+  padding: 0px 15px;
+}
+.nav {
+  display: flex;
+  flex: 1 1 auto;
+  height: 50px;
+  text-align: center;
+  justify-content: space-between;
+}
+
+/* TABS */
+.tabs {
+  display: flex;
+  align-items: center;
+  padding-right: 1rem;
+}
+.tab {
+  justify-content: center;
+  padding: 0 1.5rem;
+}
+.tab > button {
+  padding: 0;
+  background-color: inherit;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 700;
+  transition: 0.3s;
+}
+.tab > button:hover {
+  color: rgb(255, 152, 0);
+  margin: 0px;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.5rem;
+  font-weight: 700;
+  border: 1px solid rgb(255, 152, 0);
+  background: transparent;
+  /*color: rgb(51, 51, 51);*/
+  transition: all 0.1s ease 0s;
+}
+.tab.active {
+  background-color: #ccc;
+}
+
+/* section with headers */
+.sectionHeaders {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: white;
+}
+.h1 {
+  display: flex;
+  font-size: 5em;
+  justify-content: center;
+  padding-top: 4rem;
+  padding-bottom: 10px;
+  margin: 0;
+}
+h1::selection {
+  background-color: red;
+}
+h5 {
+  display: flex;
+  font-size: 1em;
+  justify-content: center;
+  padding-bottom: 5rem;
+  padding-top: 10px;
+  margin: 0;
+}
+h5 > a {
+  text-decoration: none;
+  color: inherit;
+}
+.spanPersonal {
+  font-weight: bold;
+  transition: color 0.2s ease 0s;
+  border-bottom: 3px solid rgb(255, 152, 0);
+}
+
+/* main sector */
+.main {
+  background-color: rgb(36, 40, 47);
+}
+
+/* section for footer */
+.footer {
+  display: flex;
+  height: 80px;
+  /*background-color: ;*/
+}
+
+
+
+
+
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-float infinite 3s ease-in-out;
+  }
+}
+
+.App-header {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+}
+
+.App-link {
+  color: rgb(112, 76, 182);
+}
+
+@keyframes App-logo-float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}

@@ -1,0 +1,14 @@
+.filtersDiv {
+    display: flex;
+    background: rgb(36, 40, 47);
+    height: 40px;
+    justify-content: space-around;
+}
+
+.form {
+    height: 100%;
+}
+
+.input {
+    height: 100% !important;
+}

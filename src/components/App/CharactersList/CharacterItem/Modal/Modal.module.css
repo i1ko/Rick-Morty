@@ -1,0 +1,125 @@
+.modal {
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,0.4);
+    z-index: 1000;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.modalContent {
+    position: relative;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    background: rgb(60, 62, 68);
+    width: 40%;
+    height: 70%;
+}
+.modalContent div {
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+}
+.modalContent img {
+    border-radius: 8px;
+    max-width: 240px;
+    max-height: 240px;
+}
+.crossButton {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+    display: flex;
+    width: 10px;
+    height: 10px;
+}
+.divInfo {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+.divInfoName {
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    color: white;
+    font-size: 50px;
+}
+.divInfoStatus {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    color: green;
+}
+.divInfoLastSeenLocation {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    color: rgb(158, 158, 158);
+    padding-top: 20px;
+}
+.divInfoLastSeenLocationHeader {
+    display: flex;
+    justify-content: center;
+    font-weight: normal;
+    font-size: 20px;
+    text-align: center;
+}
+.divInfoLastSeenLocationName {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 25px;
+    color: white;
+    text-align: center;
+}
+
+.divInfoOriginLocation {
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    color: rgb(158, 158, 158);
+}
+.divInfoOriginLocationHeader {
+    display: flex;
+    justify-content: center;
+    font-weight: normal;
+    font-size: 20px;
+    text-align: center;
+}
+.divInfoOriginLocationName {
+    display: flex;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+    color: white;
+}
+
+.divInfoEpisodesAmount {
+    display: flex;
+    padding-top: 10px;
+}
+.divInfoEpisodesAmount span:first-child {
+    display: flex;
+    color: rgb(158, 158, 158);
+    font-weight: normal;
+    font-size: 20px;
+    text-align: center;
+}
+.divInfoEpisodesAmount span:nth-child(2) {
+    display: flex;
+    font-weight: bold;
+    font-size: 20px;
+    text-align: center;
+}
+
