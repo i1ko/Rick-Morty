@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {SetStateAction} from 'react';
 
 import styles from './Modal.module.css'
 import {CharacterItemI} from "../CharacterItemI";
 
-export const Modal = ({character, active, setActive}: {character: CharacterItemI | undefined, active: boolean, setActive: any}) => {
+export const Modal = ({character, setActive}: {character: CharacterItemI | undefined, setActive: SetStateAction<any>}) => {
 
     const styleDivInfoGender = {
         color: character?.gender === 'Male'

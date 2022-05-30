@@ -30,7 +30,6 @@ function pagination(currentPage: any, lastPage: any) {
         l = i;
     }
 
-    console.log(rangeWithDots)
     return rangeWithDots;
 }
 
@@ -49,7 +48,6 @@ export const PaginationElement = ({
     let pageButtons = []
     for (let i = 1; i <= pages; i++) {
         pageButtons.push(
-            // <button key={i} onClick={() => goToPage(i)}>{i}</button>
             <Pagination.Item key={i}
                              onClick={() => goToPage(i)}
                              // active={i === active}

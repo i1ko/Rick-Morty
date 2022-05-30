@@ -19,7 +19,6 @@
     transition: 0.3s;
     background: #767676;
 }
-/* TODO: something wrong */
 .ul > li:hover .divInfo {
     color: rgb(255, 152, 0);
     font-size: 25px;

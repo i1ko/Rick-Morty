@@ -17,9 +17,9 @@ const App = () => {
     const [activePage, setActivePage] = React.useState('characters')
     const [isLoading, setIsLoading] = React.useState(true)
     const [characters, setCharacters] = React.useState<CharacterItemI[]>([])
-    const [currentPageUrl, setCurrentPageUrl] = React.useState("https://rickandmortyapi.com/api/character")
-    const [nextPageUrl, setNextPageUrl] = React.useState()
-    const [prevPageUrl, setPrevPageUrl] = React.useState()
+    const [currentPageUrl,] = React.useState("https://rickandmortyapi.com/api/character")
+    const [, setNextPageUrl] = React.useState()
+    const [, setPrevPageUrl] = React.useState()
     const [pages, setPages] = React.useState();
 
     const navigate = useNavigate()
@@ -44,12 +44,9 @@ const App = () => {
     }
 
     React.useEffect(() => {
-        // const url = currentPageUrl
         setIsLoading(true)
         axiosData(pageParams);
     },[currentPageUrl])
-
-    // React.useEffect(() => console.log(characters),[characters])
 
     const updatePageParams = (key:string, value: any) => {
         const newParams = {...pageParams, [key]: value};
@@ -81,12 +78,10 @@ const App = () => {
     const onClickCharacters = () => {
         setActivePage('characters')
         navigate({pathname: '/characters'})
-        console.log(characters);
     }
     const onClickToDo = () => {
         setActivePage('todo')
         navigate({pathname: '/todo'})
-        console.log(characters);
     }
     const onClickHome = () => {
         setActivePage('main')
@@ -138,7 +133,6 @@ const App = () => {
     ]
     const footerElement = useRoutes(footerRoutes)
 
-    // if (isLoading) return(<p>Loading</p>)
         const content = <div className={`${styles.App} container-fluid p-0`}>
             <header className={`${styles.header} container py-1`}>
                 <nav className={styles.nav}>

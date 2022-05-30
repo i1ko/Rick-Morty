@@ -1,11 +1,10 @@
 import React from 'react';
 import {Button, Form} from "react-bootstrap";
 
-// TODO: any type
-export const FormTodo = ({ addTodo }: {addTodo: any}) => {
+export const FormTodo = ({ addTodo }: {addTodo: (arg0: string) => void}) => {
     const [value, setValue] = React.useState("");
 
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!value) return;
         addTodo(value);
@@ -19,12 +18,11 @@ export const FormTodo = ({ addTodo }: {addTodo: any}) => {
                 <Form.Control type="text" className="input" value={value}
                               onChange={e => {
                                   setValue(e.target.value)
-                                  console.log(e);
                               }}
-                              placeholder="Add new todo" />
+                              placeholder="Your todo" />
             </Form.Group>
             <Button variant="primary mb-3" type="submit">
-                Submit
+                Add todo
             </Button>
         </Form>
     );

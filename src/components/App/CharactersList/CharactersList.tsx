@@ -1,4 +1,4 @@
-import React, {SetStateAction, useState} from 'react';
+import React from 'react';
 
 import styles from './CharactersList.module.css'
 import {CharacterItem} from "./CharacterItem/CharacterItem";
@@ -7,10 +7,10 @@ import {Modal} from "./CharacterItem/Modal/Modal";
 
 export const CharactersList = ({charList}: {charList: CharacterItemI[] }) => {
 
-    const [modalActive, setModalActive] = useState<boolean>(false)
-    const [modalCharacter, setModalCharacter] = useState<CharacterItemI>()
+    const [modalActive, setModalActive] = React.useState<boolean>(false)
+    const [modalCharacter, setModalCharacter] = React.useState<CharacterItemI>()
 
-    //TODO: can add useCallvack for save link of function and doesnt create new every render time
+    //TODO: can add useCallback for save link of function and doesnt create new every render time
     const onClickChar = (char: CharacterItemI) => {
         setModalActive(true)
         setModalCharacter(char)
@@ -25,7 +25,6 @@ export const CharactersList = ({charList}: {charList: CharacterItemI[] }) => {
                             {charList.map((char: CharacterItemI) => {
                                 return (
                                     <li className={'d-flex'} onClick={() => {
-                                        console.log(char);
                                         onClickChar(char)
                                     }} key={char.id}>
                                         <CharacterItem character={char}/>
@@ -36,7 +35,7 @@ export const CharactersList = ({charList}: {charList: CharacterItemI[] }) => {
                         : <p>Loading...</p>
                 }
             </div>
-            {modalActive && <Modal character={modalCharacter} active={modalActive} setActive={setModalActive}/>}
+            {modalActive && <Modal character={modalCharacter} setActive={setModalActive}/>}
         </section>
     );
 }
