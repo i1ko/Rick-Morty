@@ -4,7 +4,6 @@ import styles from './CharactersList.module.css'
 import {CharacterItem} from "./CharacterItem/CharacterItem";
 import {CharacterItemI} from "./CharacterItem/CharacterItemI";
 import {Modal} from "./CharacterItem/Modal/Modal";
-import {AppFilter} from "../AppFilter";
 
 export const CharactersList = ({charList}: {charList: CharacterItemI[] }) => {
 
@@ -19,13 +18,13 @@ export const CharactersList = ({charList}: {charList: CharacterItemI[] }) => {
 
     return (
         <section className={styles.sectionCharList}>
-            <div>
+            <div className={'container'}>
                 {
                     charList && charList.length
-                        ? <ul className={styles.ul}>
+                        ? <ul className={`${styles.ul} d-flex flex-wrap lh-1 w-100`}>
                             {charList.map((char: CharacterItemI) => {
                                 return (
-                                    <li onClick={() => {
+                                    <li className={'d-flex'} onClick={() => {
                                         console.log(char);
                                         onClickChar(char)
                                     }} key={char.id}>

@@ -3,10 +3,11 @@ import axios from "axios";
 import {Link, RouteObject, useNavigate, useRoutes} from "react-router-dom";
 
 import styles from './App.module.css';
-import {CharactersList} from "./CharactersList/CharactersList";
 import {CharacterItemI} from "./CharactersList/CharacterItem/CharacterItemI";
-import {Pagination} from "./Pagination/Pagination";
+import {CharactersList} from "./CharactersList/CharactersList";
+import {PaginationElement} from "./Pagination/PaginationElement";
 import {AppFilter} from "./AppFilter";
+import {TodoList} from "./TodoList/TodoList";
 
 const clientAxios = axios.create({
     baseURL: "https://rickandmortyapi.com/api/character"
@@ -27,7 +28,6 @@ const App = () => {
     const axiosData = async (params: {[key: string]: any}) => {
         const request: Promise<any> = clientAxios.get('/', {params});
         const dataFromRequest = await request.then(res => res.data);
-        console.log(dataFromRequest);
         setCharacters(dataFromRequest.results)
         setIsLoading(false);
         setNextPageUrl(dataFromRequest.info.next);
@@ -49,7 +49,7 @@ const App = () => {
         axiosData(pageParams);
     },[currentPageUrl])
 
-    React.useEffect(() => console.log(characters),[characters])
+    // React.useEffect(() => console.log(characters),[characters])
 
     const updatePageParams = (key:string, value: any) => {
         const newParams = {...pageParams, [key]: value};
@@ -83,11 +83,19 @@ const App = () => {
         navigate({pathname: '/characters'})
         console.log(characters);
     }
+    const onClickToDo = () => {
+        setActivePage('todo')
+        navigate({pathname: '/todo'})
+        console.log(characters);
+    }
     const onClickHome = () => {
         setActivePage('main')
     }
 
-    let routes: RouteObject[] = [
+    const activePageInlineStylesChar = {color: activePage === 'characters' ? 'rgb(255, 152, 0)!important' : 'black'}
+    const activePageInlineStylesTodo = {color: activePage === 'todo' ? 'rgb(255, 152, 0)!important' : 'black'}
+
+    let mainRoutes: RouteObject[] = [
         {
             path: "/",
             element:<>
@@ -102,12 +110,37 @@ const App = () => {
                 <CharactersList charList={characters} />,
             </>
         },
+        {
+            path: "/todo",
+            element:<TodoList />
+        },
     ]
-    const element = useRoutes(routes)
+    const mainElement = useRoutes(mainRoutes)
+
+    let footerRoutes: RouteObject[] = [
+        {
+            path: "/",
+            element:<PaginationElement goToPage={goToPage} nextPage={nextPage} pages={pages} prevPage={prevPage} />
+        },
+        {
+            path: "/characters",
+            element:<PaginationElement
+                goToPage={goToPage}
+                nextPage={nextPage}
+                pages={pages}
+                prevPage={prevPage}
+            />
+        },
+        {
+            path: "/todo",
+            element:<div />
+        },
+    ]
+    const footerElement = useRoutes(footerRoutes)
 
     // if (isLoading) return(<p>Loading</p>)
-        const content = <div className={styles.App}>
-            <header className={styles.header}>
+        const content = <div className={`${styles.App} container-fluid p-0`}>
+            <header className={`${styles.header} container py-1`}>
                 <nav className={styles.nav}>
                     <Link aria-current="page" aria-label="home page" className={styles.logo}
                           to="/" onClick={onClickHome}>
@@ -118,10 +151,20 @@ const App = () => {
                     </Link>
                     <div className={styles.tabs}>
                         <div className={styles.tab}>
-                            <button type='button' onClick={onClickCharacters}>Characters</button>
+                            <button style={activePageInlineStylesChar}
+                                    type='button'
+                                    onClick={onClickCharacters}
+                            >
+                                Characters
+                            </button>
                         </div>
                         <div className={styles.tab}>
-                            <button type='button'>TODO-list</button>
+                            <button style={activePageInlineStylesTodo}
+                                    type='button'
+                                    onClick={onClickToDo}
+                            >
+                                TODO-list
+                            </button>
                         </div>
                     </div>
                 </nav>
@@ -136,11 +179,10 @@ const App = () => {
                         </a>
                     </h5>
                 </section>
-                {element}
+                {mainElement}
             </main>
             <footer className={styles.footer}>
-                {activePage === 'characters' &&
-                    <Pagination goToPage={goToPage} nextPage={nextPage} pages={pages} prevPage={prevPage}/>}
+                {footerElement}
             </footer>
         </div>
     return (

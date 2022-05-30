@@ -22,15 +22,17 @@ export const CharacterItem = ({character: {name, image, status}}: { character: C
 
     return (
         <article className={styles.charArticle}>
-            <div className={styles.characterDiv}>
-                <div className={styles.divImg}>
-                    <img src={image} alt={`${name} photo`} />
+            <div className={`${styles.characterDiv} d-flex w-100 justify-content-between`}>
+                <div className={'d-flex align-items-center'}>
+                    <div className={styles.divImg}>
+                        <img src={image} alt={`${name} photo`}/>
+                    </div>
+                    <div className={`${styles.divInfo} 'divInfo px-2 fs-5 text-center`}>{name}</div>
                 </div>
-                <div className={`${styles.divInfo} 'divInfo'`}>{name}</div>
-                <div className={styles.divStatus}>
-                    <span style={styleDivInfoStatus} />
+                <div className={`${styles.divStatus} pe-3`}>
+                    <span style={styleDivInfoStatus}/>
                 </div>
             </div>
         </article>
-    )
+    );
 }
