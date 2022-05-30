@@ -1,67 +1,68 @@
 import React, {useState} from 'react';
 import {Card} from "react-bootstrap";
+import { v4 as uuid } from "uuid";
 
 import {TodoItemI} from "./TodoListI";
 import {TodoItem} from "./TodoItem";
 import {FormTodo} from "./FormTodo";
 
 export const TodoList = () => {
+    const localStorageTodos = JSON.parse(localStorage.getItem('todos') || '[]')
+    const [todos, setTodos] = useState<TodoItemI[]>(() => {
+        return localStorageTodos.length
+            ? localStorageTodos
+            : [{
+                id: uuid(),
+                text: "This is a sampe todo because your task list is empty",
+                isDone: false
+            }]
+    });
 
-    const [todos, setTodos] = useState<TodoItemI[]>([
-        {
-            id: 0,
-            text: "This is a sampe todo 1",
-            description: "",
-            isDone: false
-        },
-        {
-            id: 1,
-            text: "This is a sampe todo 2",
-            description: "",
-            isDone: true
-        },
-    ]);
-
-    const addTodo = (todo: TodoItemI) => {
-        const todoConfig = {...todo, }
-        const newTodos = [...todos, { todo }];
-        setTodos(newTodos as TodoItemI[]);
+    const addTodo = (text: string) => {
+        const todoId = uuid()
+        const todoConfig = {text: text, id: todoId, isDone: false}
+        const newTodos = [...todos, todoConfig]
+        setTodos(newTodos as TodoItemI[])
+        const todosForLocalStorage = JSON.stringify(newTodos)
+        localStorage.setItem('todos',todosForLocalStorage)
     };
     const markTodo = (index: number) => {
-        const newTodos = [...todos];
-        newTodos[index].isDone = true;
-        setTodos(newTodos);
+        const newTodos = [...todos]
+        newTodos[index].isDone = !(newTodos[index].isDone)
+        setTodos(newTodos)
+        const todosForLocalStorage = JSON.stringify(newTodos)
+        localStorage.setItem('todos',todosForLocalStorage)
     };
     const removeTodo = (index: number) => {
-        const newTodos = [...todos];
-        newTodos.splice(index, 1);
-        setTodos(newTodos);
+        const newTodos = [...todos]
+        newTodos.splice(index, 1)
+        setTodos(newTodos)
+        const todosForLocalStorage = JSON.stringify(newTodos)
+        newTodos.length ? localStorage.setItem('todos',todosForLocalStorage) : localStorage.removeItem('todos')
     };
 
     return (
         <div className={"container"}>
             <div className="app">
                 <div className="container">
-                    <h1 className="text-center mb-4">Todo List</h1>
+                    <h1 className="text-white text-center pt-2 mb-4">Todo List</h1>
                     <div>
                         {todos.map((todo, index) => {
-                            console.log(todo);
                             return (
                                 todo.text
                                     ?
                                     <Card>
                                         <Card.Body>
-                                            {/* trouble here !*/}
                                             <TodoItem
-                                                key={todo.id}
-                                                // index={index}
+                                                key={index}
+                                                index={index}
                                                 todo={todo}
                                                 markTodo={markTodo}
                                                 removeTodo={removeTodo}
                                             />
                                         </Card.Body>
                                     </Card>
-                                    : <p>Error</p>
+                                    : <p className={'text-white'}>Error</p>
                             );
                         })}
                     </div>
