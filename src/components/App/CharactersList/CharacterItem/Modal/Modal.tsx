@@ -26,7 +26,7 @@ export const Modal = ({character, setActive}: {character: CharacterItemI | undef
         <div onClick={() => setActive(false)} className={styles.modal}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
                 <div className={styles.crossButton} onClick={() => setActive(false)}>
-                    <span>x</span>
+                    <span>✕</span>
                 </div>
                 {character && <>
                     <div>
