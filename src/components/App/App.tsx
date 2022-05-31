@@ -50,33 +50,23 @@ const App = () => {
         axiosData(pageParams)
     },[currentPageUrl])
 
-    //TODO: can create universal function
-    const updatePageParams = (key:string, value: any) => {
+    const updatePage = async (key:string, value: any) => {
         const newParams = {...pageParams, [key]: value}
         setPageParams(newParams);
-    }
-
-    const nextPage = async () => {
-        // nextPageUrl && setCurrentPageUrl(nextPageUrl)
-        const nextPage = pageParams.page + 1
-        const newParams = {...pageParams, page: nextPage}
-        setPageParams(newParams)
         await axiosData(newParams)
     }
-    const prevPage = async () => {
-        // prevPageUrl && setCurrentPageUrl(prevPageUrl)
+
+    const goNextPage = async () => {
+        const nextPage = pageParams.page + 1
+        await updatePage('page', nextPage)
+    }
+    const goPrevPage = async () => {
         if( pageParams.page === 1 ) return
         const prevPage = pageParams.page - 1
-        const newParams = {...pageParams, page: prevPage}
-        setPageParams(newParams)
-
-        await axiosData(newParams)
+        await updatePage('page', prevPage)
     }
     const goToPage = async (num: number) => {
-        // setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${num}`)
-        const newParams = {...pageParams, page: num}
-        setPageParams(newParams)
-        await axiosData(newParams)
+        await updatePage('page', num)
     }
     const onClickCharacters = () => {
         setActivePage('characters')
@@ -120,8 +110,8 @@ const App = () => {
             path: "/",
             element: <PaginationElement
                 goToPage={goToPage}
-                nextPage={nextPage}
-                prevPage={prevPage}
+                nextPage={goNextPage}
+                prevPage={goPrevPage}
                 pages={pages}
             />
         },
@@ -129,8 +119,8 @@ const App = () => {
             path: "/characters",
             element: <PaginationElement
                 goToPage={goToPage}
-                nextPage={nextPage}
-                prevPage={prevPage}
+                nextPage={goNextPage}
+                prevPage={goPrevPage}
                 pages={pages}
             />
         },

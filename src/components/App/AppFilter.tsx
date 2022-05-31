@@ -1,7 +1,6 @@
 import React from "react";
 
-import styles from './AppFilter.module.css';
-
+// TODO: any type of props
 export const AppFilter = ({pageParams, onChangeFilter}: any) => {
     return <div className="row p-0 pt-4 mx-auto my-0 container">
         <div className="col">
