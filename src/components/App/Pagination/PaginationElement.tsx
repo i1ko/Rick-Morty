@@ -1,85 +1,42 @@
 import React from 'react'
 import Pagination from 'react-bootstrap/Pagination';
 
-//TODO: any type
-function pagination(currentPage: any, lastPage: any) {
-    let current = currentPage,
-        last = lastPage,
-        delta = 2,
-        left = current - delta,
-        right = current + delta + 1,
-        range = [],
-        rangeWithDots = [],
-        l;
-
-    for (let i = 1; i <= last; i++) {
-        if (i == 1 || i == last || i >= left && i < right) {
-            range.push(i);
-        }
-    }
-
-    for (let i of range) {
-        if (l) {
-            if (i - l === 2) {
-                rangeWithDots.push(l + 1);
-            } else if (i - l !== 1) {
-                rangeWithDots.push('...');
-            }
-        }
-        rangeWithDots.push(i);
-        l = i;
-    }
-
-    return rangeWithDots;
-}
-
 // TODO: any type
 export const PaginationElement = ({
-                               nextPage,
-                               prevPage,
-                               goToPage,
-                               pages
+                                      nextPage,
+                                      prevPage,
+                                      goToPage,
+                                      pages,
+                                      currentPage
 }: {
     nextPage: any,
     prevPage: any,
     goToPage: any,
-    pages: any
+    pages: any,
+    currentPage: number
 }) => {
     let pageButtons = []
-    for (let i = 1; i <= pages; i++) {
+    for (let page = 1; page <= pages; page++) {
         pageButtons.push(
-            <Pagination.Item key={i}
-                             onClick={() => goToPage(i)}
-                             // active={i === active}
-            >
-                {i}
-            </Pagination.Item>,
+            <Pagination.Item key={page} onClick={() => goToPage(page)}>{page}</Pagination.Item>,
         )
     }
 
-    const paginationBootstrap = <Pagination>
-        <Pagination.First />
-        <Pagination.Prev />
-        <Pagination.Item>{1}</Pagination.Item>
-        <Pagination.Ellipsis />
-
-        <Pagination.Item>{10}</Pagination.Item>
-        <Pagination.Item>{11}</Pagination.Item>
-        <Pagination.Item active>{12}</Pagination.Item>
-        <Pagination.Item>{13}</Pagination.Item>
-        <Pagination.Item disabled>{14}</Pagination.Item>
-
-        <Pagination.Ellipsis />
-        <Pagination.Item>{20}</Pagination.Item>
-        <Pagination.Next />
-        <Pagination.Last />
-    </Pagination>
+    //TODO: any type
+    const onSetPage = (event: any) => {
+        const {value} = event.target;
+        const isValue = value.length ? Number(value) : null
+        const isEnter = event.key === 'Enter'
+        isValue && isEnter && goToPage(value)
+    }
 
     return (
-        <div className={'d-flex'}>
-            <Pagination className={'flex-wrap'}>
+        <div className={'d-flex flex-column'}>
+            <span className={'d-flex text-white justify-content-center'}>Pages count 1-{pages}</span>
+            <span className={'d-flex text-white justify-content-center'}>Current page {currentPage}</span>
+            <Pagination className={'flex-wrap my-0'}>
                 {prevPage && (<Pagination.Prev onClick={prevPage}>Previous</Pagination.Prev>)}
-                {pageButtons}
+                <input type="number" min={1} max={pages} defaultValue={currentPage} onKeyUp={onSetPage} />
                 {nextPage && (<Pagination.Next onClick={nextPage}>Next</Pagination.Next>)}
             </Pagination>
         </div>

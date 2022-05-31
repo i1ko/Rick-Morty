@@ -113,6 +113,7 @@ const App = () => {
                 nextPage={goNextPage}
                 prevPage={goPrevPage}
                 pages={pages}
+                currentPage={pageParams.page}
             />
         },
         {
@@ -122,6 +123,7 @@ const App = () => {
                 nextPage={goNextPage}
                 prevPage={goPrevPage}
                 pages={pages}
+                currentPage={pageParams.page}
             />
         },
     ]
