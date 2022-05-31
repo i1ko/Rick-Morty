@@ -1,45 +1,19 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Card} from "react-bootstrap";
-import { v4 as uuid } from "uuid";
+import {useSelector} from "react-redux";
 
+import * as counterSelectors from "../../../app/selectors";
+import * as actionCreators from "../../../app/actionCreators";
 import {TodoItemI} from "./TodoListI";
 import {TodoItem} from "./TodoItem";
 import {FormTodo} from "./FormTodo";
 
 export const TodoList = () => {
-    const localStorageTodos = JSON.parse(localStorage.getItem('todos') || '[]')
-    const [todos, setTodos] = useState<TodoItemI[]>(() => {
-        return localStorageTodos.length
-            ? localStorageTodos
-            : [{
-                id: uuid(),
-                text: "This is a sampe todo because your task list is empty",
-                isDone: false
-            }]
-    });
+    const todos = useSelector(counterSelectors.getTodos)
 
-    const addTodo = (text: string) => {
-        const todoId = uuid()
-        const todoConfig = {text: text, id: todoId, isDone: false}
-        const newTodos = [...todos, todoConfig]
-        setTodos(newTodos as TodoItemI[])
-        const todosForLocalStorage = JSON.stringify(newTodos)
-        localStorage.setItem('todos',todosForLocalStorage)
-    };
-    const markTodo = (index: number) => {
-        const newTodos = [...todos]
-        newTodos[index].isDone = !(newTodos[index].isDone)
-        setTodos(newTodos)
-        const todosForLocalStorage = JSON.stringify(newTodos)
-        localStorage.setItem('todos',todosForLocalStorage)
-    };
-    const removeTodo = (index: number) => {
-        const newTodos = [...todos]
-        newTodos.splice(index, 1)
-        setTodos(newTodos)
-        const todosForLocalStorage = JSON.stringify(newTodos)
-        newTodos.length ? localStorage.setItem('todos',todosForLocalStorage) : localStorage.removeItem('todos')
-    };
+    const markTodo = (index: number) => actionCreators.markTodo(index)
+
+    const removeTodo = (index: number) => actionCreators.removeTodo(index)
 
     return (
         <div className={"container"}>
@@ -47,11 +21,12 @@ export const TodoList = () => {
                 <div className="container">
                     <h1 className="text-white text-center pt-2 mb-4">Todo List</h1>
                     <div>
-                        {todos.map((todo, index) => {
+                        {todos && todos.length
+                            && todos.map((todo: TodoItemI, index: number) => {
                             return (
                                 todo.text
                                     ?
-                                    <Card>
+                                    <Card key={index}>
                                         <Card.Body>
                                             <TodoItem
                                                 key={index}
@@ -68,7 +43,7 @@ export const TodoList = () => {
                     </div>
                 </div>
             </div>
-            <FormTodo addTodo={addTodo} />
+            <FormTodo />
         </div>
     )
 }
