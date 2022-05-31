@@ -20,60 +20,63 @@ const App = () => {
     const [currentPageUrl,] = React.useState("https://rickandmortyapi.com/api/character")
     const [, setNextPageUrl] = React.useState()
     const [, setPrevPageUrl] = React.useState()
-    const [pages, setPages] = React.useState();
+    const [pages, setPages] = React.useState()
 
     const navigate = useNavigate()
     const [pageParams, setPageParams] = React.useState({page: 1, gender: '', species: '', status:''})
 
     const axiosData = async (params: {[key: string]: any}) => {
-        const request: Promise<any> = clientAxios.get('/', {params});
-        const dataFromRequest = await request.then(res => res.data);
+        //TODO: promise any type
+        const request: Promise<any> = clientAxios.get('/', {params})
+        const dataFromRequest = await request.then(res => res.data)
         setCharacters(dataFromRequest.results)
-        setIsLoading(false);
-        setNextPageUrl(dataFromRequest.info.next);
-        setPrevPageUrl(dataFromRequest.info.prev);
+        setIsLoading(false)
+        setNextPageUrl(dataFromRequest.info.next)
+        setPrevPageUrl(dataFromRequest.info.prev)
         setPages(dataFromRequest.info.pages)
     }
 
+    // TODO: event any type
     const onChangeFilter = async (e: any) => {
-        const value = e.nativeEvent.target.value;
-        const key = e.nativeEvent.target.name;
-        const newParams = {...pageParams, [key]: value};
-        setPageParams(newParams);
-        await axiosData(newParams);
+        const value = e.nativeEvent.target.value
+        const key = e.nativeEvent.target.name
+        const newParams = {...pageParams, [key]: value}
+        setPageParams(newParams)
+        await axiosData(newParams)
     }
 
     React.useEffect(() => {
         setIsLoading(true)
-        axiosData(pageParams);
+        axiosData(pageParams)
     },[currentPageUrl])
 
+    //TODO: can create universal function
     const updatePageParams = (key:string, value: any) => {
-        const newParams = {...pageParams, [key]: value};
+        const newParams = {...pageParams, [key]: value}
         setPageParams(newParams);
     }
 
     const nextPage = async () => {
         // nextPageUrl && setCurrentPageUrl(nextPageUrl)
-        const currentPage = pageParams.page + 1;
-        const newParams = {...pageParams, page: currentPage};
-        setPageParams(newParams);
-        await axiosData(newParams);
+        const nextPage = pageParams.page + 1
+        const newParams = {...pageParams, page: nextPage}
+        setPageParams(newParams)
+        await axiosData(newParams)
     }
     const prevPage = async () => {
         // prevPageUrl && setCurrentPageUrl(prevPageUrl)
         if( pageParams.page === 1 ) return
-        const currentPage = pageParams.page - 1;
-        const newParams = {...pageParams, page: currentPage}
-        setPageParams(newParams);
+        const prevPage = pageParams.page - 1
+        const newParams = {...pageParams, page: prevPage}
+        setPageParams(newParams)
 
-        await axiosData(newParams);
+        await axiosData(newParams)
     }
     const goToPage = async (num: number) => {
         // setCurrentPageUrl(`https://rickandmortyapi.com/api/character?page=${num}`)
-        const newParams = {...pageParams, page: num};
-        setPageParams(newParams);
-        await axiosData(newParams);
+        const newParams = {...pageParams, page: num}
+        setPageParams(newParams)
+        await axiosData(newParams)
     }
     const onClickCharacters = () => {
         setActivePage('characters')
@@ -115,20 +118,21 @@ const App = () => {
     let footerRoutes: RouteObject[] = [
         {
             path: "/",
-            element:<PaginationElement goToPage={goToPage} nextPage={nextPage} pages={pages} prevPage={prevPage} />
-        },
-        {
-            path: "/characters",
-            element:<PaginationElement
+            element: <PaginationElement
                 goToPage={goToPage}
                 nextPage={nextPage}
-                pages={pages}
                 prevPage={prevPage}
+                pages={pages}
             />
         },
         {
-            path: "/todo",
-            element:<div />
+            path: "/characters",
+            element: <PaginationElement
+                goToPage={goToPage}
+                nextPage={nextPage}
+                prevPage={prevPage}
+                pages={pages}
+            />
         },
     ]
     const footerElement = useRoutes(footerRoutes)
