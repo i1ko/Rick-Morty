@@ -21,10 +21,10 @@ export const CharactersList = ({charList}: {charList: CharacterItemI[] }) => {
             <div className={'container'}>
                 {
                     charList && charList.length
-                        ? <ul className={`${styles.ul} d-flex flex-wrap lh-1 w-100`}>
+                        ? <ul className={`${styles.ul} d-flex lh-1 w-100 flex-column`}>
                             {charList.map((char: CharacterItemI) => {
                                 return (
-                                    <li className={'d-flex'} onClick={() => {
+                                    <li className={'d-flex w-100'} onClick={() => {
                                         onClickChar(char)
                                     }} key={char.id}>
                                         <CharacterItem character={char}/>

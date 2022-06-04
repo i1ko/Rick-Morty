@@ -33,45 +33,47 @@ export const Modal = ({character, setActive}: {character: CharacterItemI | undef
                         <img src={character.image} alt={`${character.name} image`}/>
                     </div>
                     <div className={styles.divInfo}>
-                        <div className={styles.divInfoName}>
+                        <div className={styles.divName}>
                             {character.name}
                         </div>
-                        <div className={styles.divInfoStatus}
-                             style={styleDivInfoStatus}
-                        >
-                            {character.status}
-                        </div>
-                        <div className={styles.divInfoGender}
-                             style={styleDivInfoGender}
-                        >
-                            {character.gender}
-                        </div>
-                        <div className={styles.divInfoLastSeenLocation}
-                             // style={styleDivInfoLastSeenLocation}
-                        >
+                        <div className={styles.divInfoDetails}>
+                            <div className={styles.divInfoStatus}
+                                 style={styleDivInfoStatus}
+                            >
+                                {character.status}
+                            </div>
+                            <div className={styles.divInfoGender}
+                                 style={styleDivInfoGender}
+                            >
+                                {character.gender}
+                            </div>
+                            <div className={styles.divInfoLastSeenLocation}
+                                // style={styleDivInfoLastSeenLocation}
+                            >
                             <span className={styles.divInfoLastSeenLocationHeader}>
                                 Last known location:
                             </span>
-                            <span className={styles.divInfoLastSeenLocationName}>
+                                <span className={styles.divInfoLastSeenLocationName}>
                                 {character.location.name}
                             </span>
-                        </div>
-                        <div className={styles.divInfoOriginLocation}>
+                            </div>
+                            <div className={styles.divInfoOriginLocation}>
                             <span className={styles.divInfoOriginLocationHeader}>
                                 Origin place:
                             </span>
-                            <span className={styles.divInfoOriginLocationName}>
+                                <span className={styles.divInfoOriginLocationName}>
                                 {character.origin.name}
                             </span>
-                        </div>
-                        <div className={styles.divInfoEpisodesAmount}>
+                            </div>
+                            <div className={styles.divInfoEpisodesAmount}>
                             <span>
                                 Episode count:
                             </span>
-                            &nbsp;
-                            <span>
+                                &nbsp;
+                                <span>
                                 {character.episode.length}
                             </span>
+                            </div>
                         </div>
                     </div>
                 </>
