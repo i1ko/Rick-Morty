@@ -1,11 +1,15 @@
-import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
+import { combineReducers, configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 
 import reducerTodos from "./reducerTodos";
-import {initialState} from "./initialState";
+import reducerModal from './reducerModal';
+
+const rootReducer = combineReducers({
+  todoState: reducerTodos,
+  modal: reducerModal,
+})
 
 export const store = configureStore({
-  reducer: reducerTodos,
-  preloadedState: initialState,
+  reducer: rootReducer,
 });
 
 export type AppDispatch = typeof store.dispatch;
