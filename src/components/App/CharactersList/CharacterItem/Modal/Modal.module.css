@@ -18,7 +18,8 @@
     display: flex;
     flex-direction: column;
     background: rgb(60, 62, 68);
-    width: 40%;
+    min-width: 40%;
+    max-width: 70%;
     height: 90vh;
     overflow: scroll;
     padding: 20px 0;
@@ -36,12 +37,18 @@
 }
 .crossButton {
     position: absolute;
-    right: 5px;
-    top: 5px;
+    height: auto;
+    width: auto;
+    right: 0;
+    top: 0;
     cursor: pointer;
     display: flex;
-    width: 10px;
-    height: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+}
+.crossButton:hover span {
+    color: white;
+    transition: 0.3s;
 }
 .divInfo {
     display: flex;

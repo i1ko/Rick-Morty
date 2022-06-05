@@ -5,6 +5,8 @@ import {CharacterItemI} from "./CharacterItemI";
 
 export const CharacterItem = ({character: {name, image, status}}: { character: CharacterItemI }) => {
 
+    console.log('CharItem rendered')
+
     const styleDivInfoStatus = {
         background: status === 'Alive'
             ? 'green'
@@ -27,7 +29,7 @@ export const CharacterItem = ({character: {name, image, status}}: { character: C
                     <div className={styles.divImg}>
                         <img src={image} alt={`${name} photo`}/>
                     </div>
-                    <div className={`${styles.divInfo} 'divInfo px-2 fs-5 text-center`}>{name}</div>
+                    <div className={`${styles.divInfo} divInfo px-2 fs-5`}>{name}</div>
                 </div>
                 <div className={`${styles.divStatus} pe-3`}>
                     <span style={styleDivInfoStatus}/>

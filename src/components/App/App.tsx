@@ -14,6 +14,9 @@ const clientAxios = axios.create({
 })
 
 const App = () => {
+
+    console.log('App rendered');
+
     const [activePage, setActivePage] = React.useState('characters')
     const [isLoading, setIsLoading] = React.useState(true)
     const [characters, setCharacters] = React.useState<CharacterItemI[]>([])
@@ -165,7 +168,6 @@ const App = () => {
                     <h5>
                         <a href={'https://www.linkedin.com/in/ivan-oleksiuk-968a95183/'}>
                             <span className={styles.spanPersonal}>by i1</span>
-                            <span> and PECODE</span>
                         </a>
                     </h5>
                 </section>

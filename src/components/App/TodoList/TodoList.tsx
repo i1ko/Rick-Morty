@@ -26,7 +26,7 @@ export const TodoList = () => {
                             return (
                                 todo.text
                                     ?
-                                    <Card key={index}>
+                                    <Card key={index} className={'my-2'}>
                                         <Card.Body>
                                             <TodoItem
                                                 key={index}

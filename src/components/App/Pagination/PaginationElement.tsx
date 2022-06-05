@@ -15,6 +15,9 @@ export const PaginationElement = ({
     pages: any,
     currentPage: number
 }) => {
+
+    console.log('Pagination rendered');
+
     let pageButtons = []
     for (let page = 1; page <= pages; page++) {
         pageButtons.push(
@@ -32,8 +35,8 @@ export const PaginationElement = ({
 
     return (
         <div className={'d-flex flex-column'}>
-            <span className={'d-flex text-white justify-content-center'}>Pages count 1-{pages}</span>
-            <span className={'d-flex text-white justify-content-center'}>Current page {currentPage}</span>
+            <span className={'d-flex text-white-50 justify-content-center'}>Pages count 1-{pages}</span>
+            <span className={'d-flex pb-2 text-white-50 justify-content-center'}>Current page {currentPage}</span>
             <Pagination className={'flex-wrap my-0'}>
                 {prevPage && (<Pagination.Prev onClick={prevPage}>Previous</Pagination.Prev>)}
                 <input type="number" min={1} max={pages} defaultValue={currentPage} onKeyUp={onSetPage} />
