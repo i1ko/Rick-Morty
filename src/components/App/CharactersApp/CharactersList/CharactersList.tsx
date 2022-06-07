@@ -1,20 +1,19 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 
 import styles from './CharactersList.module.css'
 import {CharacterItem} from "./CharacterItem/CharacterItem";
 import {CharacterItemI} from "./CharacterItem/CharacterItemI";
-import {Modal} from "./CharacterItem/Modal/Modal";
+import {useDispatch} from "react-redux";
+import {showModal} from "../../../../app/actionCreators";
 
-export const CharactersList = ({charList}: {charList: CharacterItemI[] }) => {
+export const CharactersList = React.memo(({charList}: {charList: CharacterItemI[] }) => {
 
-    const [modalActive, setModalActive] = React.useState<boolean>(false)
-    const [modalCharacter, setModalCharacter] = React.useState<CharacterItemI>()
+    const dispatch = useDispatch()
 
     //TODO: can add useCallback for save link of function and doesnt create new every render time
-    const onClickChar = (char: CharacterItemI) => {
-        setModalActive(true)
-        setModalCharacter(char)
-    }
+    const onClickChar = useCallback((char: CharacterItemI) => {
+        dispatch(showModal(char))
+    },[])
 
     return (
         <section className={styles.sectionCharList}>
@@ -35,7 +34,6 @@ export const CharactersList = ({charList}: {charList: CharacterItemI[] }) => {
                         : <p>Loading...</p>
                 }
             </div>
-            {modalActive && <Modal character={modalCharacter} setActive={setModalActive}/>}
         </section>
     );
-}
+})

@@ -5,8 +5,6 @@ import {CharacterItemI} from "./CharacterItemI";
 
 export const CharacterItem = ({character: {name, image, status}}: { character: CharacterItemI }) => {
 
-    console.log('CharItem rendered')
-
     const styleDivInfoStatus = {
         background: status === 'Alive'
             ? 'green'

@@ -1,9 +1,15 @@
-import React, {SetStateAction} from 'react';
+import React from 'react';
 
 import styles from './Modal.module.css'
-import {CharacterItemI} from "../CharacterItemI";
+import {isModalActive, modalCharacter} from "../../../../../../app/selectors";
+import {useDispatch, useSelector} from "react-redux";
+import {hideModal} from "../../../../../../app/actionCreators";
 
-export const Modal = ({character, setActive}: {character: CharacterItemI | undefined, setActive: SetStateAction<any>}) => {
+export const Modal = () => {
+
+    const dispatch = useDispatch()
+    const isModalStateActive = useSelector(isModalActive)
+    const character = useSelector(modalCharacter)
 
     const styleDivInfoGender = {
         color: character?.gender === 'Male'
@@ -23,9 +29,9 @@ export const Modal = ({character, setActive}: {character: CharacterItemI | undef
     };
 
     return (
-        <div onClick={() => setActive(false)} className={styles.modal}>
+        <div onClick={() => dispatch(hideModal())} className={`${styles.modal} ${isModalStateActive ? null : 'd-none'}`}>
             <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
-                <div className={styles.crossButton} onClick={() => setActive(false)}>
+                <div className={styles.crossButton} onClick={() => dispatch(hideModal())}>
                     <span>✕</span>
                 </div>
                 {character && <>

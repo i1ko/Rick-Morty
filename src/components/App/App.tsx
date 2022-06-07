@@ -3,19 +3,20 @@ import axios from "axios";
 import {Link, RouteObject, useNavigate, useRoutes} from "react-router-dom";
 
 import styles from './App.module.css';
-import {CharacterItemI} from "./CharactersList/CharacterItem/CharacterItemI";
-import {CharactersList} from "./CharactersList/CharactersList";
-import {PaginationElement} from "./Pagination/PaginationElement";
-import {AppFilter} from "./AppFilter";
+import {CharacterItemI} from "./CharactersApp/CharactersList/CharacterItem/CharacterItemI";
+import {CharactersList} from "./CharactersApp/CharactersList/CharactersList";
+import {PaginationElement} from "./CharactersApp/Pagination/PaginationElement";
+import {CharactersFilter} from "./CharactersApp/CharactersFilter/CharactersFilter";
 import {TodoList} from "./TodoList/TodoList";
+import {Modal} from "./CharactersApp/CharactersList/CharacterItem/Modal/Modal";
+import {useSelector} from "react-redux";
+import {isModalActive} from "../../app/selectors";
 
 const clientAxios = axios.create({
     baseURL: "https://rickandmortyapi.com/api/character"
 })
 
 const App = () => {
-
-    console.log('App rendered');
 
     const [activePage, setActivePage] = React.useState('characters')
     const [isLoading, setIsLoading] = React.useState(true)
@@ -24,6 +25,8 @@ const App = () => {
     const [, setNextPageUrl] = React.useState()
     const [, setPrevPageUrl] = React.useState()
     const [pages, setPages] = React.useState()
+
+    const isModalStateActive = useSelector(isModalActive)
 
     const navigate = useNavigate()
     const [pageParams, setPageParams] = React.useState({page: 1, gender: '', species: '', status:''})
@@ -90,20 +93,22 @@ const App = () => {
         {
             path: "/",
             element:<>
-                <AppFilter pageParams={pageParams} onChangeFilter={onChangeFilter} />
+                {isModalStateActive && <Modal />}
+                <CharactersFilter pageParams={pageParams} onChangeFilter={onChangeFilter} />
                 <CharactersList charList={characters} />,
             </>
         },
         {
             path: "/characters",
-            element:<>
-                <AppFilter pageParams={pageParams} onChangeFilter={onChangeFilter} />
+            element: <>
+                {isModalStateActive && <Modal />}
+                <CharactersFilter pageParams={pageParams} onChangeFilter={onChangeFilter} />
                 <CharactersList charList={characters} />,
             </>
         },
         {
             path: "/todo",
-            element:<TodoList />
+            element: <TodoList />
         },
     ]
     const mainElement = useRoutes(mainRoutes)

@@ -5,7 +5,7 @@ import reducerModal from './reducerModal';
 
 const rootReducer = combineReducers({
   todoState: reducerTodos,
-  modal: reducerModal,
+  modalState: reducerModal,
 })
 
 export const store = configureStore({

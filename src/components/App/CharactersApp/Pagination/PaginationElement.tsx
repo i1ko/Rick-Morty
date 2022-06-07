@@ -16,8 +16,6 @@ export const PaginationElement = ({
     currentPage: number
 }) => {
 
-    console.log('Pagination rendered');
-
     let pageButtons = []
     for (let page = 1; page <= pages; page++) {
         pageButtons.push(

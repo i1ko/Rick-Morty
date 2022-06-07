@@ -1,7 +1,7 @@
 import React from "react";
 
 // TODO: any type of props
-export const AppFilter = ({pageParams, onChangeFilter}: any) => {
+export const CharactersFilter = ({pageParams, onChangeFilter}: any) => {
     return <div className="row p-0 pt-4 mx-auto my-0 container">
         <div className="col">
             <label htmlFor="" className={"form-label text-white fs-5"}>Gender:</label>
