@@ -3,12 +3,13 @@ import React, {useCallback} from 'react';
 import styles from './CharactersList.module.css'
 import {CharacterItem} from "./CharacterItem/CharacterItem";
 import {CharacterItemI} from "./CharacterItem/CharacterItemI";
-import {useDispatch} from "react-redux";
-import {showModal} from "../../../../app/actionCreators";
+import {useAppDispatch} from "../../../../redux/hooks";
+import {modalSlice} from "../../../../redux/reducers/reducerModal";
 
 export const CharactersList = React.memo(({charList}: {charList: CharacterItemI[] }) => {
 
-    const dispatch = useDispatch()
+    const {showModal} = modalSlice.actions;
+    const dispatch = useAppDispatch()
 
     //TODO: can add useCallback for save link of function and doesnt create new every render time
     const onClickChar = useCallback((char: CharacterItemI) => {

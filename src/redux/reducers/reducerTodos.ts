@@ -1,20 +1,36 @@
 import {v4 as uuid} from "uuid";
+import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {TodoItemI} from "../../components/App/TodoList/TodoListI";
 
-//TODO: state and action any type
-export default function reducerTodos(todoState: any, action: any) {
-    switch (action.type) {
-        case 'ADD_TODO':
+interface TodoState {
+    todoList: TodoItemI[]
+}
+
+const localStorageTodo = JSON.parse(localStorage.getItem('todoList') || '[]')
+const initialState: TodoState = {
+    todoList: localStorageTodo.length
+        ? localStorageTodo
+        : [{
+            id: 'test',
+            text: "This is a sample todo because your task list is empty",
+            isDone: false
+        }]
+}
+
+export const todoSlice = createSlice({
+    name: 'Todo',
+    initialState,
+    reducers: {
+        addTodo: (todoState, action: PayloadAction<string>) => {
             const text = action.payload
             const todoId = uuid()
             const todoConfig = {text: text, id: todoId, isDone: false}
             const newTodos = [...todoState.todoList, todoConfig]
             const addedTodosForLocalStorage = JSON.stringify(newTodos)
             localStorage.setItem('todoList',addedTodosForLocalStorage)
-            return {
-                ...todoState,
-                todoList: newTodos
-            }
-        case 'MARK_TODO':
+            todoState.todoList = newTodos;
+        },
+        markTodo: (todoState, action: PayloadAction<number>) => {
             const index = action.payload;
             const todos = [...todoState.todoList]
             todos[index] = {
@@ -23,32 +39,16 @@ export default function reducerTodos(todoState: any, action: any) {
             }
             const markedTodosForLocalStorage = JSON.stringify(todos)
             localStorage.setItem('todoList',markedTodosForLocalStorage)
-            return {
-                ...todoState,
-                todoList: [...todos]
-        }
-        case 'REMOVE_TODO':
+            todoState.todoList = [...todos]
+        },
+        removeTodo: (todoState, action: PayloadAction<number>) => {
             const currentTodos = [...todoState.todoList]
             currentTodos.splice(action.payload, 1)
             const todosForLocalStorage = JSON.stringify(currentTodos)
             currentTodos.length ? localStorage.setItem('todoList',todosForLocalStorage) : localStorage.removeItem('todoList')
-            return {
-                ...todoState,
-                todoList: currentTodos
-            }
-
-        default:
-            const localStorageTodos = JSON.parse(localStorage.getItem('todoList') || '[]')
-            const initialTodos = localStorageTodos.length
-                ? localStorageTodos
-                : [{
-                    id: 'test',
-                    text: "This is a sample todo because your task list is empty",
-                    isDone: false
-                }]
-            return {
-                ...todoState,
-                todoList: initialTodos
-            }
+            todoState.todoList = currentTodos
+        }
     }
-}
+})
+
+export default todoSlice.reducer;

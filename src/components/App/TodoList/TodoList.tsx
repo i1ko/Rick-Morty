@@ -1,19 +1,13 @@
 import React from 'react';
 import {Card} from "react-bootstrap";
-import {useSelector} from "react-redux";
 
-import * as counterSelectors from "../../../app/selectors";
-import * as actionCreators from "../../../app/actionCreators";
 import {TodoItemI} from "./TodoListI";
 import {TodoItem} from "./TodoItem";
 import {FormTodo} from "./FormTodo";
+import {useAppSelector} from "../../../redux/hooks";
 
 export const TodoList = () => {
-    const todos = useSelector(counterSelectors.getTodos)
-
-    const markTodo = (index: number) => actionCreators.markTodo(index)
-
-    const removeTodo = (index: number) => actionCreators.removeTodo(index)
+    const {todoList} = useAppSelector(state => state.reducerTodos)
 
     return (
         <div className={"container"}>
@@ -21,8 +15,8 @@ export const TodoList = () => {
                 <div className="container">
                     <h1 className="text-white text-center pt-2 mb-4">Todo List</h1>
                     <div>
-                        {todos && todos.length
-                            && todos.map((todo: TodoItemI, index: number) => {
+                        {todoList && todoList.length
+                            && todoList.map((todo: TodoItemI, index: number) => {
                             return (
                                 todo.text
                                     ?
@@ -32,8 +26,6 @@ export const TodoList = () => {
                                                 key={index}
                                                 index={index}
                                                 todo={todo}
-                                                markTodo={markTodo}
-                                                removeTodo={removeTodo}
                                             />
                                         </Card.Body>
                                     </Card>

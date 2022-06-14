@@ -1,18 +1,19 @@
 import React from 'react';
 import {Button, Form} from "react-bootstrap";
-import {useDispatch} from "react-redux";
 
-import * as actionCreators from "../../../app/actionCreators";
+import {useAppDispatch} from "../../../redux/hooks";
+import {todoSlice} from "../../../redux/reducers/reducerTodos";
 
 export const FormTodo = () => {
     const [value, setValue] = React.useState("")
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
+    const {addTodo} = todoSlice.actions;
 
     const handleSubmit = (e: React.SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault()
         const textParsed = value.length ? value.trim() : null
         if (!textParsed) return
-        dispatch(actionCreators.addTodo(textParsed)) // (arg0: string) => AnyAction
+        dispatch(addTodo(textParsed))
         setValue("")
     }
 

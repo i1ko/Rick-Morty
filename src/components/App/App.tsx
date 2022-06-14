@@ -9,8 +9,7 @@ import {PaginationElement} from "./CharactersApp/Pagination/PaginationElement";
 import {CharactersFilter} from "./CharactersApp/CharactersFilter/CharactersFilter";
 import {TodoList} from "./TodoList/TodoList";
 import {Modal} from "./CharactersApp/CharactersList/CharacterItem/Modal/Modal";
-import {useSelector} from "react-redux";
-import {isModalActive} from "../../app/selectors";
+import {useAppSelector} from "../../redux/hooks";
 
 const clientAxios = axios.create({
     baseURL: "https://rickandmortyapi.com/api/character"
@@ -26,7 +25,7 @@ const App = () => {
     const [, setPrevPageUrl] = React.useState()
     const [pages, setPages] = React.useState()
 
-    const isModalStateActive = useSelector(isModalActive)
+    const {isModalActive} = useAppSelector(state => state.reducerModal);
 
     const navigate = useNavigate()
     const [pageParams, setPageParams] = React.useState({page: 1, gender: '', species: '', status:''})
@@ -93,7 +92,7 @@ const App = () => {
         {
             path: "/",
             element:<>
-                {isModalStateActive && <Modal />}
+                {isModalActive && <Modal />}
                 <CharactersFilter pageParams={pageParams} onChangeFilter={onChangeFilter} />
                 <CharactersList charList={characters} />,
             </>
@@ -101,7 +100,7 @@ const App = () => {
         {
             path: "/characters",
             element: <>
-                {isModalStateActive && <Modal />}
+                {isModalActive && <Modal />}
                 <CharactersFilter pageParams={pageParams} onChangeFilter={onChangeFilter} />
                 <CharactersList charList={characters} />,
             </>
