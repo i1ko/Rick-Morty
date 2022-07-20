@@ -7,20 +7,27 @@ import reportWebVitals from './reportWebVitals';
 import './index.css';
 import {BrowserRouter} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 
 const container = document.getElementById('root')!;
 const root = createRoot(container);
 
 const store = setupStore();
+export const apolloClient = new ApolloClient({
+    uri: 'https://rickandmortyapi.com/graphql',
+    cache: new InMemoryCache()
+});
 
 root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-        <BrowserRouter>
-            <App />
-        </BrowserRouter>
-    </Provider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <ApolloProvider client={apolloClient}>
+            <Provider store={store}>
+                <BrowserRouter>
+                    <App/>
+                </BrowserRouter>
+            </Provider>
+        </ApolloProvider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your redux, pass a function
