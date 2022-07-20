@@ -10,15 +10,29 @@ import {CharactersFilter} from "./CharactersApp/CharactersFilter/CharactersFilte
 import {TodoList} from "./TodoList/TodoList";
 import {Modal} from "./CharactersApp/CharactersList/CharacterItem/Modal/Modal";
 import {useAppSelector} from "../../redux/hooks";
+import {gql, useQuery} from "@apollo/client";
 
 const clientAxios = axios.create({
     baseURL: "https://rickandmortyapi.com/api/character"
 })
 
+const GET_ALL_CHARACTERS = gql`
+    query getAllCharacters {
+        characters {
+            results {
+                name, type
+            }
+        }
+    }
+`
+
 const App = () => {
+
+    const {data, loading, error} = useQuery(GET_ALL_CHARACTERS)
 
     const [activePage, setActivePage] = React.useState('characters')
     const [isLoading, setIsLoading] = React.useState(true)
+    // const [isLoading, setIsLoading] = React.useState(loading)
     const [characters, setCharacters] = React.useState<CharacterItemI[]>([])
     const [currentPageUrl,] = React.useState("https://rickandmortyapi.com/api/character")
     const [, setNextPageUrl] = React.useState()
