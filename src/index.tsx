@@ -5,7 +5,7 @@ import { setupStore } from './redux/store';
 import App from './components/App/App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {ApolloClient, ApolloProvider, InMemoryCache} from "@apollo/client";
 
@@ -22,9 +22,12 @@ root.render(
     <React.StrictMode>
         <ApolloProvider client={apolloClient}>
             <Provider store={store}>
-                <BrowserRouter>
+                {/*<BrowserRouter>*/}
+                {/*using special for GitHub pages*/}
+                <HashRouter>
                     <App/>
-                </BrowserRouter>
+                </HashRouter>
+                {/*</BrowserRouter>*/}
             </Provider>
         </ApolloProvider>
     </React.StrictMode>
